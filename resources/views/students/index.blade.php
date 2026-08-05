@@ -5,10 +5,6 @@
 @php
     $alerttype = "WARNING";
 @endphp
- 
-<x-alert :type="$alerttype">
-    Terdapat kesalahan pada sistem sekolah
-</x-alert>
 
 @section('content')
 
