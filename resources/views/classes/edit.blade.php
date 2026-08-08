@@ -76,14 +76,18 @@
                         name="major_id"
                         class="w-full border border-[#E5E3DB] bg-white px-4 py-2.5 text-sm outline-none focus:border-[#16213A]"
                     >
+
                         @foreach ($majors as $major)
+
                             <option
                                 value="{{ $major['id'] }}"
                                 {{ $class['major_id'] == $major['id'] ? 'selected' : '' }}
                             >
                                 {{ $major['code'] }} - {{ $major['name'] }}
                             </option>
+
                         @endforeach
+
                     </select>
                 </div>
 
@@ -98,14 +102,18 @@
                         name="teacher_id"
                         class="w-full border border-[#E5E3DB] bg-white px-4 py-2.5 text-sm outline-none focus:border-[#16213A]"
                     >
+
                         @foreach ($teachers as $teacher)
+
                             <option
                                 value="{{ $teacher['id'] }}"
                                 {{ $class['teacher_id'] == $teacher['id'] ? 'selected' : '' }}
                             >
                                 {{ $teacher['name'] }}
                             </option>
+
                         @endforeach
+
                     </select>
                 </div>
 

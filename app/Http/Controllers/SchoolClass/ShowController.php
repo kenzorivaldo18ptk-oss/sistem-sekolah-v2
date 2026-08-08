@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, string $id)
     {
         $title = "Sistem Sekolah - Detail Kelas";
@@ -19,12 +16,12 @@ class ShowController extends Controller
             'name' => 'XII AKL 1',
             'grade' => 'XII',
             'major' => 'AKL',
-            'homeroom_teacher' => 'Budi Santoso'
+            'homeroom_teacher' => 'Budi Santoso',
         ];
 
         return view('classes.show', [
             'title' => $title,
-            'class' => $class
+            'class' => $class,
         ]);
     }
 }

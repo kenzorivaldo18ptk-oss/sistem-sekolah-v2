@@ -46,6 +46,11 @@ class MajorController extends Controller
         ]);
     }
 
+    public function store()
+    {
+        return "Menambahkan data jurusan baru";
+    }
+
     public function show(string $id)
     {
         $title = "Sistem Sekolah - Detail Jurusan";
@@ -78,11 +83,6 @@ class MajorController extends Controller
             'title' => $title,
             'major' => $major,
         ]);
-    }
-
-    public function store()
-    {
-        return "Menambahkan data jurusan baru";
     }
 
     public function update(string $id)
