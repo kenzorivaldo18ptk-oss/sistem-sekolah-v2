@@ -14,7 +14,7 @@ use GuzzleHttp\Promise\Create;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::prefix('students')->name('students.')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
