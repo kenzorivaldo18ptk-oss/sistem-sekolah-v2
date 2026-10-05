@@ -20,7 +20,7 @@
 
         </div>
 
-        <a href="" class="bg-[#16213A] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#26324f]">
+        <a href="{{ route('students.create') }}" class="bg-[#16213A] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#26324f]">
 
             Catat Siswa Baru
 

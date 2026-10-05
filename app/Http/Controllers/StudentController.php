@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Student\StoreRequest;
+use App\Http\Requests\Student\UpdateRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -9,22 +12,14 @@ class StudentController extends Controller
     public function index()
     {
         $title = "Sistem Sekolah - Daftar Siswa";
-        $student = [
-            [
-                'id' => 1,
-                'nis' => '1001',
-                'name' => 'Andi',
-                'class' => 'XII TKJ 3',
-                'major' => 'TKJ'
-            ],
-            [
-                'id' => 2,
-                'nis' => '1002',
-                'name' => 'Budi',
-                'class' => 'XII TKJ 2',
-                'major' => 'TKJ'
-            ],
-        ];
+        $student = Student::select([
+            'id',
+            'nis',
+            'name',
+            'class',
+            'major'
+        ])
+        ->get();
 
         return view ('students.index', [
             'title' => $title,
@@ -35,14 +30,16 @@ class StudentController extends Controller
        
     
 
-    public function show(string $id)
+    public function show(Student $student)
     {
         $title = "Sistem Sekolah - Detail Siswa";
         $description = "Menampilkan daftar siswa yang terdaftar";
         
+
         return view('students.show', [
             'title' => $title,
             'description' => $description,
+            'student' => $student
         ]);
     }
 
@@ -57,7 +54,7 @@ class StudentController extends Controller
         ]);
     } 
 
-    public function edit(string $id)
+    public function edit(Student $student)
     {
         $title = "Sistem Sekolah - Edit Siswa";
         $description = "Menampilkan daftar siswa yang terdaftar";
@@ -65,21 +62,45 @@ class StudentController extends Controller
         return view('students.edit', [
             'title' => $title,
             'description' => $description,
+            'student' => $student
         ]);
     } 
 
-    public function store()
+    public function store(StoreRequest $request)
     {
-        return "Menambah data siswa baru";
+        // Validasi
+
+        $validatedRequest = $request->validated();
+
+        // Tambahkan Data ke database
+        Student::create($validatedRequest);
+
+        // Handle if Success
+        return redirect()->route('students.index');
     } 
 
-    public function update(string $id)
+    public function update(Student $student, UpdateRequest $request)
     {
-        return "Mengubah data siswa dengan ID: {$id}";
+         // Validasi
+
+        $validatedRequest = $request->validated();
+
+        // Update Data
+        $student->update($validatedRequest);
+
+        // Handle if Success
+        return redirect()->route('students.index');
+    }
+    
+
+    public function destroy(Student $student)
+    {   
+        // Delete Data
+
+        $student->delete();
+
+        // Handle if Success
+        return redirect()->route('students.index');
     }
 
-    public function destroy(string $id)
-    {
-        return "Menghapus data siswa dengan ID: {$id}";
-    }
 }
