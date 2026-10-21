@@ -22,6 +22,7 @@ Route::get('/login', [AuthController::class, 'loginView'])->name('login-view');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('login-post');
 Route::get('/register', [AuthController::class, 'registerView'])->name('register-view');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('register-post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('students')->name('students.')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
