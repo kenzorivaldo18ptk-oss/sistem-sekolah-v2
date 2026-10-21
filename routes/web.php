@@ -24,7 +24,7 @@ Route::get('/register', [AuthController::class, 'registerView'])->name('register
 Route::post('/register', [AuthController::class, 'registerPost'])->name('register-post')->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::name('students.')->middleware('role:student,teacher', 'auth')->prefix('students')->group(function () {
+Route::name('students.')->middleware(['role:student,teacher', 'auth'])->prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
 
     Route::get('/create', [StudentController::class, 'create'])->name('create');

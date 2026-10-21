@@ -9,22 +9,37 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = "Sistem Sekolah - Daftar Siswa";
-        $student = Student::select([
-            'id',
-            'nis',
-            'name',
-            'class',
-            'major'
-        ])
-        ->get();
 
-        return view ('students.index', [
-            'title' => $title,
-            'students' => $student
-        ]);
+        $search = $request->query('search');
+        $class = $request->query('class');
+        $major = $request->query('major');
+        
+    
+    // Ubah simplePaginate() menjadi paginate(10) di sini
+    $student = Student::select(['id', 'nis', 'name', 'class', 'major'])
+        ->when($search, function($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('nis', 'like', "%{$search}%");
+            });
+        })
+        ->when($class, fn($query, $class) => $query->where('class', '=', $class))
+        ->when($major, fn($query, $major) => $query->where('major', '=', $major))
+        ->paginate(10)
+        ->withQueryString(); // Menambahkan withQueryString() untuk mempertahankan query string saat melakukan pagination
+
+    $schoolClasses = ['10 AKL', '11 AKL', '11 TKJ 1', '11 TKJ 2', '10 BiD', '12 TKJ 1', '12 TKJ 2', '12 TKJ 3'];
+    $majors = ['AKL', 'BiD', 'TKJ'];
+
+    return view ('students.index', [
+        'title' => $title,
+        'students' => $student,
+        'schoolClasses' => $schoolClasses,
+        'majors' => $majors
+    ]);
     }
 
        
