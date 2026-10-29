@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\StudentSeeder; // <-- Tambahkan baris ini untuk mengatasi garis kuning
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            ClassSeeder::class, // Wajib ada agar tabel classes terisi data
+            MajorSeeder::class, // Wajib ada agar tabel majors terisi data
             StudentSeeder::class,
         ]);   
     }

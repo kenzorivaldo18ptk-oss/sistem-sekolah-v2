@@ -3,27 +3,24 @@
 namespace Database\Factories;
 
 use App\Models\Student;
+use App\Models\SchoolClass;
+use App\Models\Major;
+use App\Models\User; // <-- Tambahkan import User
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<Student>
- */
 class StudentFactory extends Factory
 {
     protected $model = Student::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     public function definition(): array
     {
         return [
             'nis' => fake()->unique()->numerify('####'),
             'name' => fake()->name(),
             'gender' => fake()->randomElement(['Laki-laki', 'Perempuan']),
-            'class' => fake()->randomElement(['10 AKL', '11 AKL', '12 AKL', '10 BiD 1', '10 Bid 2', '12 TKJ 1', '12 TKJ 2']),
-            'major' => fake()->randomElement(['AKL', 'BiD', 'TKJ'])
+            'class_id' => SchoolClass::inRandomOrder()->first()?->id ?? 1,
+            'major_id' => Major::inRandomOrder()->first()?->id ?? 1,
+            'user_id' => User::inRandomOrder()->first()?->id ?? null, 
         ];
     }
 }

@@ -1,27 +1,14 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use App\Models\SchoolClass; // Sesuaikan dengan nama model kelas Anda
-use App\Models\Major;       // Sesuaikan dengan nama model jurusan Anda
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Seeder;
+use App\Models\Student;
 
-class StudentFactory extends Factory
+class StudentSeeder extends Seeder
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function run(): void
     {
-        return [
-            'nis' => fake()->unique()->numerify('####'),
-            'name' => fake()->name(),
-            'gender' => fake()->randomElement(['Laki-laki', 'Perempuan']),
-            // Mengambil ID secara acak dari tabel classes dan majors
-            'class_id' => SchoolClass::inRandomOrder()->first()?->id ?? 1,
-            'major_id' => Major::inRandomOrder()->first()?->id ?? 1,
-        ];
+        Student::factory()->count(100)->create();
     }
 }

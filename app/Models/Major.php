@@ -9,5 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable('name')]
 class Major extends Model
 {
-    
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'major_id', 'id');
+    }
 }
