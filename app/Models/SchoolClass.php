@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[Table('classes')]
+#[Fillable('name')]
 class SchoolClass extends Model
 {
     use HasFactory;
-
-    protected $table = 'classes'; // <-- Wajib ada agar tidak mencari tabel school_classes
 
     public function students()
     {

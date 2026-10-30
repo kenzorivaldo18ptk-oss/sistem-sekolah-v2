@@ -2,18 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[Table('subjects')]
+#[Fillable('name')]
 class Subject extends Model
 {
-    public function students()
+    use HasFactory;
+
+    public function students(): BelongsToMany
     {
-    return $this->belongsToMany(
-    
-        Student::class,
-        'student_subject',
-        'subject_id',
-        'student_id',
-    );
+        return $this->belongsToMany(
+            Student::class,
+            'student_subject',
+            'subject_id',
+            'student_id',
+        );
     }
 }

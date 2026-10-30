@@ -14,24 +14,17 @@ use Illuminate\Notifications\Notifiable;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    // Pastikan fillable atau guarded sudah diatur
+    protected $guarded = ['id'];
 
+    // Atau pakai fillable:
+    // protected $fillable = ['name', 'email', 'password', 'role'];
+
+    // Relasi ke model Student (jika user berperan sebagai siswa)
     public function student()
     {
-        return $this->hasOne(Student::class, 'user_id', 'id');
+        return $this->hasOne(Student::class);
     }
 }

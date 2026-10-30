@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable('nis', 'name', 'gender', 'major_id', 'class_id', 'user_id')]
 #[Table('students')]
-
+#[Fillable('nis', 'name', 'gender', 'major_id', 'class_id', 'user_id')]
 class Student extends Model
 {
     use HasFactory;
@@ -31,11 +30,11 @@ class Student extends Model
 
     public function subjects()
     {
-        return $this->belongsToMany (
-        Subject::class,
-        'student_subject',
-        'student_id',
-        'subject_id',
+        return $this->belongsToMany(
+            Subject::class,
+            'student_subject',
+            'student_id',
+            'subject_id',
         );
     }
 }

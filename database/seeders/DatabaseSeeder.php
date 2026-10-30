@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Major;
+use App\Models\SchoolClass;
+use App\Models\Student;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -9,16 +12,20 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         $this->call([
             UserSeeder::class,
-            ClassSeeder::class, // Wajib ada agar tabel classes terisi data
-            MajorSeeder::class, // Wajib ada agar tabel majors terisi data
-            StudentSeeder::class,
-        ]);   
+        ]);
+
+        foreach (['10 AKL', '11 AKL', '12 TKJ 1', '12 TKJ 2'] as $name) {
+            SchoolClass::create(['name' => $name]);
+        }
+
+        foreach (['AKL', 'TKJ', 'BiD'] as $name) {
+            Major::create(['name' => $name]);
+        }
+
+        Student::factory()->count(100)->create();
     }
 }
